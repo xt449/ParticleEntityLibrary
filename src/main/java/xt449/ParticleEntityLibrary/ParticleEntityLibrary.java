@@ -55,9 +55,9 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 				//RayTraceResult result = player.rayTraceBlocks(16 * 8, FluidCollisionMode.NEVER);
 				final Location location = player.getLocation();
 				final Vector direction = location.getDirection()/*.normalize()*/;
-				Location point;
+				final Location point = player.getLocation();
 				do {
-					point = location.add(direction);
+					point.add(direction);
 					player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, point, 1);
 				} while(point.distance(location) < 32);
 				//> 16) {
