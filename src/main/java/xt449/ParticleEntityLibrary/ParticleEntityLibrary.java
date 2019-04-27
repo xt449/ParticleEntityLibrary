@@ -1,18 +1,18 @@
 package xt449.ParticleEntityLibrary;
 
-import org.bukkit.*;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Guardian;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.RayTraceResult;
-import org.bukkit.util.Vector;
-import xt449.ParticleEntityLibrary.Example.FlameThrowerParticle;
+		import org.bukkit.*;
+		import org.bukkit.entity.EntityType;
+		import org.bukkit.entity.Guardian;
+		import org.bukkit.entity.Player;
+		import org.bukkit.event.EventHandler;
+		import org.bukkit.event.EventPriority;
+		import org.bukkit.event.Listener;
+		import org.bukkit.event.block.Action;
+		import org.bukkit.event.player.PlayerInteractEvent;
+		import org.bukkit.plugin.java.JavaPlugin;
+		import org.bukkit.util.RayTraceResult;
+		import org.bukkit.util.Vector;
+		import xt449.ParticleEntityLibrary.Example.FlameThrowerParticle;
 
 public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 
@@ -53,13 +53,15 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.04F, 1.4F);
 			} else if(event.getMaterial() == Material.EMERALD) {
 				//RayTraceResult result = player.rayTraceBlocks(16 * 8, FluidCollisionMode.NEVER);
-				final Location location = player.getLocation();
+				final Location location = player.getEyeLocation();
 				final Vector direction = location.getDirection()/*.normalize()*/;
-				final Location point = player.getLocation();
+				final Location point = player.getEyeLocation();
 				do {
 					point.add(direction);
 					player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, point, 1);
-				} while(point.distance(location) < 32);
+				} while(point.distance(location) < 32 && point.getBlock().isPassable());
+				player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, point, 32, 2, 2, 2);
+				player.getWorld().createExplosion(point, 1, true);
 				//> 16) {
 				//}
 				//if(res)
