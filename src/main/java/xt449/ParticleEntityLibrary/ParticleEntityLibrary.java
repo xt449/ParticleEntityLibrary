@@ -1,20 +1,25 @@
 package xt449.ParticleEntityLibrary;
 
-		import org.bukkit.*;
-		import org.bukkit.entity.EntityType;
-		import org.bukkit.entity.Guardian;
-		import org.bukkit.entity.Player;
-		import org.bukkit.event.EventHandler;
-		import org.bukkit.event.EventPriority;
-		import org.bukkit.event.Listener;
-		import org.bukkit.event.block.Action;
-		import org.bukkit.event.player.PlayerInteractEvent;
-		import org.bukkit.plugin.java.JavaPlugin;
-		import org.bukkit.util.RayTraceResult;
-		import org.bukkit.util.Vector;
-		import xt449.ParticleEntityLibrary.Example.FlameThrowerParticle;
+import org.bukkit.*;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Guardian;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
+import xt449.ParticleEntityLibrary.Example.FlameThrowerParticle;
+
+import java.util.Arrays;
 
 public class ParticleEntityLibrary extends JavaPlugin implements Listener {
+
+	int particleIndex = 0;
+	Particle particle = Particle.EXPLOSION_NORMAL;
 
 	@Override
 	public final void onLoad() {
@@ -22,6 +27,31 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 
 	@Override
 	public final void onEnable() {
+		getCommand("pel").setExecutor((sender, command, label, args) -> {
+			if(args.length > 0) {
+				try {
+					int num = Integer.parseInt(args[0]);
+					this.particle = Particle.values()[num];
+					particleIndex = Arrays.binarySearch(Particle.values(), particle);
+					return true;
+				} catch(NumberFormatException exc) {
+					//
+				}
+
+				try {
+					this.particle = Particle.valueOf(args[0]);
+					particleIndex = Arrays.binarySearch(Particle.values(), particle);
+					return true;
+				} catch(IllegalArgumentException exc) {
+					//
+				}
+			} else {
+				sender.sendMessage(Arrays.toString(Particle.values()));
+				return true;
+			}
+			return false;
+		});
+
 		AbstractParticleProjectile.register(this);
 
 		Bukkit.getPluginManager().registerEvents(this, this);
@@ -54,14 +84,17 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 			} else if(event.getMaterial() == Material.EMERALD) {
 				//RayTraceResult result = player.rayTraceBlocks(16 * 8, FluidCollisionMode.NEVER);
 				final Location location = player.getEyeLocation();
-				final Vector direction = location.getDirection()/*.normalize()*/;
+				final Vector direction = location.getDirection().normalize().multiply(0.2F);
 				final Location point = player.getEyeLocation();
 				do {
 					point.add(direction);
-					player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, point, 1);
-				} while(point.distance(location) < 32 && point.getBlock().isPassable());
-				player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, point, 32, 2, 2, 2);
-				player.getWorld().createExplosion(point, 1, true);
+					player.getWorld().getNearbyEntities(point, 0.2F, 0.2F, 0.2F, (entity) -> entity instanceof LivingEntity && entity.getType() != EntityType.PLAYER).forEach((entity) -> ((LivingEntity) entity).setHealth(0));
+					player.getWorld().spawnParticle(particle /*Particle.VILLAGER_HAPPY*/, point, 1);
+				} while(point.distance(location) < 30 && point.getBlock().isPassable());
+				//player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, SoundCategory.PLAYERS, 0.1F, 2);
+				//player.getWorld().playSound(point, Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, SoundCategory.HOSTILE, 3.0F, 1);
+				player.getWorld().spawnParticle(Particle.FLASH, point, 4, 0, 0, 0, 0);
+				//player.getWorld().spawnParticle(Particle.SNEEZE, point, 32, 1, 1, 1, 0.05F);
 				//> 16) {
 				//}
 				//if(res)
