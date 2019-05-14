@@ -11,8 +11,19 @@ import java.util.List;
 
 public abstract class AbstractParticleProjectile {
 
-	private static final float DRAG_DEFAULT = 0.075F;
-	private static final float GRAVITY_DEFAULT = 0.015F;
+	public static final float DRAG_LIVING = 0.02F;
+	public static final float DRAG_THROWN = 0.01F;
+	public static final float DRAG_ARROW = 0.01F;
+	public static final float DRAG_OTHER = 0.02F;
+	public static final float DRAG_VEHICLE = 0.05F;
+	private static final float DRAG_DEFAULT = 0.015F;
+
+	public static final float GRAVITY_LIVING = 0.08F;
+	public static final float GRAVITY_THROWN = 0.03F;
+	public static final float GRAVITY_ARROW = 0.05F;
+	public static final float GRAVITY_OTHER = 0.04F;
+	public static final float GRAVITY_VEHICLE = 0.04F;
+	private static final float GRAVITY_DEFAULT = 0.045F;
 
 	private static final class Data {
 		Location location = null;
@@ -117,7 +128,7 @@ public abstract class AbstractParticleProjectile {
 	private final void summon() {
 		activeProjectiles.add(this);
 
-		Bukkit.broadcastMessage("ID: " + id);
+		onLaunch();
 	}
 
 	public final void summon(Location location) {
@@ -216,13 +227,13 @@ public abstract class AbstractParticleProjectile {
 	}
 
 	private void idle() {
-		onIdle();
-
 		data.particleData.spawnParticle(data.location);
 
 		if(!onGround()) {
 			processMovementTick();
 		}
+
+		onIdle();
 	}
 
 	private void processMovementTick() {
