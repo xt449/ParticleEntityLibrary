@@ -41,7 +41,7 @@ public abstract class AbstractParticleProjectile {
 		return activeProjectiles.get(id);
 	}
 
-	public static final void register(Plugin plugin) {
+	static final void register(Plugin plugin) {
 		if(!registered) {
 			// ConcurrentModificationException - Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> activeProjectiles.forEach(AbstractParticleProjectile::idle), 100, 1);
 			Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> new ArrayList<>(activeProjectiles).forEach(AbstractParticleProjectile::idle), 100, 1);

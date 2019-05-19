@@ -55,7 +55,8 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 
 		AbstractParticleProjectile.register(this);
 
-		Bukkit.getPluginManager().registerEvents(this, this);
+		/* TODO: Disabled Examples
+		Bukkit.getPluginManager().registerEvents(this, this);*/
 	}
 
 	@Override
@@ -63,7 +64,8 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 		Bukkit.getScheduler().cancelTasks(this);
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	/* TODO: Disabled Examples
+    @EventHandler(priority = EventPriority.HIGH)
 	protected final void onPlayerInteract(PlayerInteractEvent event) {
 		final Material material = event.getMaterial();
 		//if(!material.equals(Material.AIR)) {
@@ -91,7 +93,7 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 				do {
 					point.add(direction);
 					//world.getNearbyEntities(point, 0.2F, 0.2F, 0.2F, (entity) -> entity instanceof LivingEntity && entity.getType() != EntityType.PLAYER).forEach((entity) -> ((LivingEntity) entity).setHealth(0));
-					world.spawnParticle(particle /*Particle.VILLAGER_HAPPY*/, point, 1, 0, 0, 0, player.getLevel());
+					world.spawnParticle(particle *//*Particle.VILLAGER_HAPPY*//*, point, 1, 0, 0, 0, player.getLevel());
 				} while(point.distance(location) < 30 && point.getBlock().isPassable());
 				//player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, SoundCategory.PLAYERS, 0.1F, 2);
 				//player.getWorld().playSound(point, Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, SoundCategory.HOSTILE, 3.0F, 1);
@@ -111,5 +113,5 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 			}
 		}
 		//}
-	}
+	}*/
 }
