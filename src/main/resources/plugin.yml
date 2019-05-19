@@ -3,7 +3,7 @@ name: ${project.artifactId}
 version: ${project.version}
 #load: STARTUP
 author: xt449
-#api-version: 1.13
+api-version: '1.14'
 
 commands:
   pel:

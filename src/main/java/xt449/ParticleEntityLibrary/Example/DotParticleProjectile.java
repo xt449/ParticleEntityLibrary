@@ -1,7 +1,6 @@
 package xt449.ParticleEntityLibrary.Example;
 
 import org.bukkit.Particle;
-import org.bukkit.entity.Entity;
 import xt449.ParticleEntityLibrary.AbstractParticleProjectile;
 import xt449.ParticleEntityLibrary.ParticleData;
 

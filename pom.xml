@@ -8,16 +8,16 @@
     <artifactId>ParticleEntityLibrary</artifactId>
     <version>${minecraft.version}-1.0.0</version>
 
+    <properties>
+        <minecraft.version>1.14.1</minecraft.version>
+    </properties>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
-
-    <properties>
-        <minecraft.version>1.14</minecraft.version>
-    </properties>
 
     <dependencies>
 	    <dependency>

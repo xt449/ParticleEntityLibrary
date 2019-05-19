@@ -1,7 +1,10 @@
 package xt449.ParticleEntityLibrary;
 
 import org.bukkit.*;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -87,7 +90,7 @@ public class ParticleEntityLibrary extends JavaPlugin implements Listener {
 				final World world = player.getWorld();
 				do {
 					point.add(direction);
-					world.getNearbyEntities(point, 0.2F, 0.2F, 0.2F, (entity) -> entity instanceof LivingEntity && entity.getType() != EntityType.PLAYER).forEach((entity) -> ((LivingEntity) entity).setHealth(0));
+					//world.getNearbyEntities(point, 0.2F, 0.2F, 0.2F, (entity) -> entity instanceof LivingEntity && entity.getType() != EntityType.PLAYER).forEach((entity) -> ((LivingEntity) entity).setHealth(0));
 					world.spawnParticle(particle /*Particle.VILLAGER_HAPPY*/, point, 1, 0, 0, 0, player.getLevel());
 				} while(point.distance(location) < 30 && point.getBlock().isPassable());
 				//player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, SoundCategory.PLAYERS, 0.1F, 2);
