@@ -1,10 +1,10 @@
-package xt449.ParticleEntityLibrary.Example;
+package xt449.particleentitylibrary.Example;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
-import xt449.ParticleEntityLibrary.AbstractParticleProjectile;
-import xt449.ParticleEntityLibrary.ParticleData;
+import xt449.particleentitylibrary.AbstractParticleProjectile;
+import xt449.particleentitylibrary.ParticleData;
 
 public class FlameThrowerParticle extends AbstractParticleProjectile {
 

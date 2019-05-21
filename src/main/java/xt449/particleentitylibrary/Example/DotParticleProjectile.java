@@ -1,8 +1,8 @@
-package xt449.ParticleEntityLibrary.Example;
+package xt449.particleentitylibrary.Example;
 
 import org.bukkit.Particle;
-import xt449.ParticleEntityLibrary.AbstractParticleProjectile;
-import xt449.ParticleEntityLibrary.ParticleData;
+import xt449.particleentitylibrary.AbstractParticleProjectile;
+import xt449.particleentitylibrary.ParticleData;
 
 public class DotParticleProjectile extends AbstractParticleProjectile {
 

@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>xt449</groupId>
-    <artifactId>ParticleEntityLibrary</artifactId>
+    <artifactId>particleentitylibrary</artifactId>
     <version>${minecraft.version}-1.0.0</version>
+    <name>ParticleEntityLibrary</name>
 
     <properties>
         <minecraft.version>1.14.1</minecraft.version>
