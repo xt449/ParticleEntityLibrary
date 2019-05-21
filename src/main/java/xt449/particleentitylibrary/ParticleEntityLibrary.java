@@ -2,12 +2,11 @@ package xt449.particleentitylibrary;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
-public class ParticleEntityLibrary extends JavaPlugin implements Listener {
+public class ParticleEntityLibrary extends JavaPlugin /*implements Listener*/ {
 
 	int particleIndex = 0;
 	Particle particle = Particle.EXPLOSION_NORMAL;
