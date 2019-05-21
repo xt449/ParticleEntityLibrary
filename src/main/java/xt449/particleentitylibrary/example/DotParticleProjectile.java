@@ -1,4 +1,4 @@
-package xt449.particleentitylibrary.Example;
+package xt449.particleentitylibrary.example;
 
 import org.bukkit.Particle;
 import xt449.particleentitylibrary.AbstractParticleProjectile;

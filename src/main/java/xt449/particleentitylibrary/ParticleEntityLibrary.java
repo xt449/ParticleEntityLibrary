@@ -1,6 +1,7 @@
 package xt449.particleentitylibrary;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
