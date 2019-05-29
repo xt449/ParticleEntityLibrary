@@ -88,7 +88,6 @@ public class ParticleData {
 		return this;
 	}
 
-	@SuppressWarnings("ALL")
 	public void spawnParticle(Location location) {
 		location.getWorld().spawnParticle(particle, location, count, offsetX, offsetY, offsetZ, extra, data, force);
 	}

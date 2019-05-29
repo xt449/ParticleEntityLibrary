@@ -1,23 +1,25 @@
 package xt449.particleentitylibrary;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
-public class ParticleEntityLibrary extends JavaPlugin /*implements Listener*/ {
+public class ParticleEntityLibrary extends JavaPlugin {
 
-	int particleIndex = 0;
+	/* TODO: Disabled Examples
+    int particleIndex = 0;
 	Particle particle = Particle.EXPLOSION_NORMAL;
-
-	@Override
-	public final void onLoad() {
-	}
+	*/
 
 	@Override
 	public final void onEnable() {
-		getCommand("pel").setExecutor((sender, command, label, args) -> {
+		/* TODO: Disabled Examples
+	    getCommand("pel").setExecutor((sender, command, label, args) -> {
 			if(args.length > 0) {
 				try {
 					int num = Integer.parseInt(args[0]);
@@ -41,11 +43,13 @@ public class ParticleEntityLibrary extends JavaPlugin /*implements Listener*/ {
 			}
 			return false;
 		});
+		*/
 
 		AbstractParticleProjectile.register(this);
 
 		/* TODO: Disabled Examples
-		Bukkit.getPluginManager().registerEvents(this, this);*/
+		Bukkit.getPluginManager().registerEvents(this, this);
+		*/
 	}
 
 	@Override
@@ -102,5 +106,33 @@ public class ParticleEntityLibrary extends JavaPlugin /*implements Listener*/ {
 			}
 		}
 		//}
-	}*/
+	}
+	*/
+
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger) {
+		final Location point = origin;
+		do {
+			point.add(direction);
+			onRay.accept(point);
+			particleData.spawnParticle(point);
+
+			if(!point.getBlock().isPassable()) {
+				rangeTrigger = true;
+				break;
+			}
+		} while(point.distance(origin) < range);
+
+		if(rangeTrigger) {
+			onHit.accept(point);
+		}
+	}
+
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {
+		final Location point = origin;
+		do {
+			point.add(direction);
+			onRay.accept(point);
+			particleData.spawnParticle(point);
+		} while(point.distance(origin) < range && point.getBlock().isPassable());
+	}
 }

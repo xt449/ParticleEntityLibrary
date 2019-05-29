@@ -16,16 +16,16 @@
     <repositories>
         <repository>
             <id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
     <dependencies>
-	    <dependency>
-		    <groupId>org.spigotmc</groupId>
-		    <artifactId>spigot-api</artifactId>
-		    <version>${minecraft.version}-R0.1-SNAPSHOT</version>
-	    </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${minecraft.version}-R0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -37,15 +37,15 @@
         </resources>
 
         <plugins>
-	        <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-compiler-plugin</artifactId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
-		        <configuration>
-			        <source>8</source>
-			        <target>8</target>
-		        </configuration>
-	        </plugin>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

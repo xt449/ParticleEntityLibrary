@@ -11,6 +11,8 @@ import java.util.List;
 
 public abstract class AbstractParticleProjectile {
 
+	// section: 'static'
+
 	public static final float DRAG_LIVING = 0.02F;
 	public static final float DRAG_THROWN = 0.01F;
 	public static final float DRAG_ARROW = 0.01F;
@@ -49,8 +51,12 @@ public abstract class AbstractParticleProjectile {
 		}
 	}
 
+	// section: 'fields'
+
 	public final int id;
 	private Data data = new Data();
+
+	// section: 'constructors'
 
 	protected AbstractParticleProjectile(ParticleData particleData) {
 		id = activeProjectiles.size();
@@ -68,12 +74,12 @@ public abstract class AbstractParticleProjectile {
 		data.velocity = velocity;
 	}
 
-	protected AbstractParticleProjectile(ParticleData particleData, Location location, Vector velocity, float drag) {
+	/*protected AbstractParticleProjectile(ParticleData particleData, Location location, Vector velocity, float drag) {
 		this(particleData);
 		data.location = location;
 		data.velocity = velocity;
 		data.drag = drag;
-	}
+	}*/
 
 	protected AbstractParticleProjectile(ParticleData particleData, Location location, Vector velocity, float drag, float gravity) {
 		this(particleData);
@@ -83,11 +89,11 @@ public abstract class AbstractParticleProjectile {
 		data.gravity = gravity;
 	}
 
-	protected AbstractParticleProjectile(ParticleData particleData, Location location, float drag) {
+	/*protected AbstractParticleProjectile(ParticleData particleData, Location location, float drag) {
 		this(particleData);
 		data.location = location;
 		data.drag = drag;
-	}
+	}*/
 
 	protected AbstractParticleProjectile(ParticleData particleData, Location location, float drag, float gravity) {
 		this(particleData);
@@ -101,11 +107,11 @@ public abstract class AbstractParticleProjectile {
 		data.velocity = velocity;
 	}
 
-	protected AbstractParticleProjectile(ParticleData particleData, Vector velocity, float drag) {
+	/*protected AbstractParticleProjectile(ParticleData particleData, Vector velocity, float drag) {
 		this(particleData);
 		data.velocity = velocity;
 		data.drag = drag;
-	}
+	}*/
 
 	protected AbstractParticleProjectile(ParticleData particleData, Vector velocity, float drag, float gravity) {
 		this(particleData);
@@ -114,16 +120,18 @@ public abstract class AbstractParticleProjectile {
 		data.gravity = gravity;
 	}
 
-	protected AbstractParticleProjectile(ParticleData particleData, float drag) {
+	/*protected AbstractParticleProjectile(ParticleData particleData, float drag) {
 		this(particleData);
 		data.drag = drag;
-	}
+	}*/
 
 	protected AbstractParticleProjectile(ParticleData particleData, float drag, float gravity) {
 		this(particleData);
 		data.drag = drag;
 		data.gravity = gravity;
 	}
+
+	// section: summon
 
 	private final void summon() {
 		activeProjectiles.add(this);
@@ -144,13 +152,13 @@ public abstract class AbstractParticleProjectile {
 		this.summon();
 	}
 
-	public final void summon(Location location, Vector velocity, float drag) {
+	/*public final void summon(Location location, Vector velocity, float drag) {
 		data.location = location;
 		data.velocity = velocity;
 		data.drag = drag;
 
 		this.summon();
-	}
+	}*/
 
 	public final void summon(Location location, Vector velocity, float drag, float gravity) {
 		data.location = location;
@@ -161,12 +169,12 @@ public abstract class AbstractParticleProjectile {
 		this.summon();
 	}
 
-	public final void summon(Location location, float drag) {
+	/*public final void summon(Location location, float drag) {
 		data.location = location;
 		data.drag = drag;
 
 		this.summon();
-	}
+	}*/
 
 	public final void summon(Location location, float drag, float gravity) {
 		data.location = location;
@@ -182,12 +190,12 @@ public abstract class AbstractParticleProjectile {
 		this.summon();
 	}
 
-	public final void summon(Vector velocity, float drag) {
+	/*public final void summon(Vector velocity, float drag) {
 		data.velocity = velocity;
 		data.drag = drag;
 
 		this.summon();
-	}
+	}*/
 
 	public final void summon(Vector velocity, float drag, float gravity) {
 		data.velocity = velocity;
@@ -197,11 +205,11 @@ public abstract class AbstractParticleProjectile {
 		this.summon();
 	}
 
-	public final void summon(float drag) {
+	/*public final void summon(float drag) {
 		data.drag = drag;
 
 		this.summon();
-	}
+	}*/
 
 	public final void summon(float drag, float gravity) {
 		data.drag = drag;
@@ -209,6 +217,8 @@ public abstract class AbstractParticleProjectile {
 
 		this.summon();
 	}
+
+	// section: 'getters'
 
 	public final Location getLocation() {
 		return data.location;
@@ -226,20 +236,7 @@ public abstract class AbstractParticleProjectile {
 		return data.gravity;
 	}
 
-	private void idle() {
-		data.particleData.spawnParticle(data.location);
-
-		if(!onGround()) {
-			processMovementTick();
-		}
-
-		onIdle();
-	}
-
-	private void processMovementTick() {
-		data.location = data.location.add(data.velocity);
-		data.velocity = data.velocity.multiply(1 - data.drag).subtract(new Vector(0, data.gravity, 0));
-	}
+	// section: 'setters'
 
 	public final AbstractParticleProjectile setLocation(Location location) {
 		data.location = location;
@@ -265,13 +262,32 @@ public abstract class AbstractParticleProjectile {
 		return this;
 	}
 
-	public final boolean onGround() {
-		return (data.location.getBlock().getType() != Material.AIR /*|| getNextLocation(id).getBlock().getType() != Material.AIR*/);
+	// section: 'miscellaneous'
+
+	private void idle() {
+		data.particleData.spawnParticle(data.location);
+
+		if(!onGround()) {
+			processMovementTick();
+		}
+
+		onIdle();
+	}
+
+	private void processMovementTick() {
+		data.location = data.location.add(data.velocity);
+		data.velocity = data.velocity.multiply(1 - data.drag).subtract(new Vector(0, data.gravity, 0));
 	}
 
 	public final void destroy() {
 		activeProjectiles.remove(this);
 	}
+
+	public final boolean onGround() {
+		return (data.location.getBlock().getType() != Material.AIR /*|| getNextLocation(id).getBlock().getType() != Material.AIR*/);
+	}
+
+	// section: 'events'
 
 	protected abstract void onLaunch();
 
