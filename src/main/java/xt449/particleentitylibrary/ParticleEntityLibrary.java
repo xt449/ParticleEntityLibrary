@@ -109,6 +109,15 @@ public class ParticleEntityLibrary extends JavaPlugin {
 	}
 	*/
 
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {
+		final Location point = origin;
+		do {
+			point.add(direction);
+			onRay.accept(point);
+			particleData.spawnParticle(point);
+		} while(point.distance(origin) < range && point.getBlock().isPassable());
+	}
+
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger) {
 		final Location point = origin;
 		do {
@@ -127,12 +136,44 @@ public class ParticleEntityLibrary extends JavaPlugin {
 		}
 	}
 
-	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, boolean strictBoundingBoxes) {
 		final Location point = origin;
 		do {
 			point.add(direction);
 			onRay.accept(point);
 			particleData.spawnParticle(point);
-		} while(point.distance(origin) < range && point.getBlock().isPassable());
+			if(!point.getBlock().isPassable()) {
+				if(strictBoundingBoxes) {
+					if(point.getBlock().getBoundingBox().contains(point.toVector())) {
+						break;
+					}
+				}
+			}
+		} while(point.distance(origin) < range);
+	}
+
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger, boolean strictBoundingBoxes) {
+		final Location point = origin;
+		do {
+			point.add(direction);
+			onRay.accept(point);
+			particleData.spawnParticle(point);
+
+			if(!point.getBlock().isPassable()) {
+				if(strictBoundingBoxes) {
+					if(point.getBlock().getBoundingBox().contains(point.toVector())) {
+						rangeTrigger = true;
+						break;
+					}
+				} else {
+					rangeTrigger = true;
+					break;
+				}
+			}
+		} while(point.distance(origin) < range);
+
+		if(rangeTrigger) {
+			onHit.accept(point);
+		}
 	}
 }
