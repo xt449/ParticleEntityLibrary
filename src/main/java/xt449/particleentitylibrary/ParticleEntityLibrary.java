@@ -2,11 +2,9 @@ package xt449.particleentitylibrary;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class ParticleEntityLibrary extends JavaPlugin {
@@ -110,7 +108,7 @@ public class ParticleEntityLibrary extends JavaPlugin {
 	*/
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {
-		final Location point = origin;
+		final Location point = origin.clone();
 		do {
 			point.add(direction);
 			onRay.accept(point);
@@ -119,7 +117,7 @@ public class ParticleEntityLibrary extends JavaPlugin {
 	}
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger) {
-		final Location point = origin;
+		final Location point = origin.clone();
 		do {
 			point.add(direction);
 			onRay.accept(point);
@@ -137,23 +135,36 @@ public class ParticleEntityLibrary extends JavaPlugin {
 	}
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, boolean strictBoundingBoxes) {
-		final Location point = origin;
+		final Location point = origin.clone();
+		System.out.println("debug -1");
 		do {
+			System.out.println("debug 0");
 			point.add(direction);
+			System.out.println("debug 1");
 			onRay.accept(point);
+			System.out.println("debug 2");
 			particleData.spawnParticle(point);
+			System.out.println("debug 3");
+
 			if(!point.getBlock().isPassable()) {
+				System.out.println("debug 4");
 				if(strictBoundingBoxes) {
+					System.out.println("debug 5");
 					if(point.getBlock().getBoundingBox().contains(point.toVector())) {
+						System.out.println("debug 6");
 						break;
 					}
+					System.out.println("debug 7");
 				}
+				System.out.println("debug 8");
 			}
+			System.out.println("debug 9");
 		} while(point.distance(origin) < range);
+		System.out.println("debug 10");
 	}
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger, boolean strictBoundingBoxes) {
-		final Location point = origin;
+		final Location point = origin.clone();
 		do {
 			point.add(direction);
 			onRay.accept(point);
