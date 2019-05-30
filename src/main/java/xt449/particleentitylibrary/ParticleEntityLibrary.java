@@ -136,31 +136,19 @@ public class ParticleEntityLibrary extends JavaPlugin {
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, boolean strictBoundingBoxes) {
 		final Location point = origin.clone();
-		System.out.println("debug -1");
 		do {
-			System.out.println("debug 0");
 			point.add(direction);
-			System.out.println("debug 1");
 			onRay.accept(point);
-			System.out.println("debug 2");
 			particleData.spawnParticle(point);
-			System.out.println("debug 3");
 
 			if(!point.getBlock().isPassable()) {
-				System.out.println("debug 4");
 				if(strictBoundingBoxes) {
-					System.out.println("debug 5");
 					if(point.getBlock().getBoundingBox().contains(point.toVector())) {
-						System.out.println("debug 6");
 						break;
 					}
-					System.out.println("debug 7");
 				}
-				System.out.println("debug 8");
 			}
-			System.out.println("debug 9");
 		} while(point.distance(origin) < range);
-		System.out.println("debug 10");
 	}
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger, boolean strictBoundingBoxes) {
