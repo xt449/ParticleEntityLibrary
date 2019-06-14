@@ -1,6 +1,5 @@
 package xt449.particleentitylibrary;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
@@ -11,12 +10,12 @@ public class ParticleEntityLibrary extends JavaPlugin {
 
 	@Override
 	public final void onEnable() {
-		AbstractParticleProjectile.register(this);
+		AbstractParticleEntity.register(this);
 	}
 
 	@Override
 	public final void onDisable() {
-		Bukkit.getScheduler().cancelTasks(this);
+		//AbstractParticleEntity.unregister();
 	}
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {

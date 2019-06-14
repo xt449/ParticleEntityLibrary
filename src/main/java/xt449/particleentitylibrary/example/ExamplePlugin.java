@@ -65,7 +65,7 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
 
 		if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			if(material == Material.BLAZE_POWDER) {
-				new FlameThrowerParticle().summon(player.getEyeLocation(), player.getLocation().getDirection());
+				new FlameThrowerParticle(player.getEyeLocation()).summon(player.getLocation().getDirection());
 
 				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.04F, 1.4F);
 			} else if(material == Material.EMERALD) {
@@ -89,7 +89,7 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
 				arrow.setColor(Color.BLUE);
 				arrow.setGlowing(true);
 
-				new DotParticleProjectile().summon(player.getEyeLocation(), arrow.getVelocity(), AbstractParticleProjectile.DRAG_ARROW, AbstractParticleProjectile.GRAVITY_ARROW);
+				new DotParticleProjectile(player.getEyeLocation()).summon(arrow.getVelocity(), AbstractParticleProjectile.DRAG_ARROW, AbstractParticleProjectile.GRAVITY_ARROW);
 			}
 		}
 	}

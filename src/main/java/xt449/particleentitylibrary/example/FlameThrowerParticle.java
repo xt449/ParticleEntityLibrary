@@ -1,6 +1,6 @@
 package xt449.particleentitylibrary.example;
 
-import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import xt449.particleentitylibrary.AbstractParticleProjectile;
@@ -8,21 +8,16 @@ import xt449.particleentitylibrary.ParticleData;
 
 public class FlameThrowerParticle extends AbstractParticleProjectile {
 
-	public FlameThrowerParticle() {
-		super(new ParticleData(Particle.FLAME, 25, 0.5F, 0.5F, 0.5F));
+	public FlameThrowerParticle(Location location) {
+		super(location, new ParticleData(Particle.FLAME, 25, 0.5F, 0.5F, 0.5F));
 	}
 
 	@Override
-	protected void onLaunch() {
+	protected void onSummon() {
 	}
 
 	@Override
-	protected void onHit() {
-		Bukkit.broadcastMessage("onHitEvent");
-	}
-
-	@Override
-	protected void onIdle() {
+	protected void onTick() {
 		for(Entity entity : getLocation().getWorld().getNearbyEntities(getLocation(), 1, 1, 1)) {
 			entity.setFireTicks(200); // 10 seconds
 		}
@@ -30,5 +25,9 @@ public class FlameThrowerParticle extends AbstractParticleProjectile {
 		if(onGround() || getLocation().getY() < 0) {
 			destroy();
 		}
+	}
+
+	@Override
+	protected void onHit() {
 	}
 }
