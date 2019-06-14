@@ -1,9 +1,11 @@
 package xt449.particleentitylibrary.example;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,8 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Vector;
-import xt449.particleentitylibrary.AbstractParticleProjectile;
+import xt449.particleentitylibrary.ParticleData;
+import xt449.particleentitylibrary.ParticleEntityLibrary;
 
 import java.util.Arrays;
 
@@ -64,32 +66,24 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
 		final Player player = event.getPlayer();
 
 		if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-			if(material == Material.BLAZE_POWDER) {
-				new FlameThrowerParticle(player.getEyeLocation()).summon(player.getLocation().getDirection());
+			if(material == Material.COOKIE) {
+				new ExampleParticleEntity(player.getEyeLocation()).summon();
+			} else if(material == Material.BLAZE_POWDER) {
+				new ExampleParticleProjectile(player.getEyeLocation()).summon(player.getLocation().getDirection());
 
 				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.04F, 1.4F);
 			} else if(material == Material.EMERALD) {
-				final Location location = player.getEyeLocation();
-				final Vector direction = location.getDirection().normalize().multiply(0.2F);
-				final Location point = player.getEyeLocation();
-				final World world = player.getWorld();
-
-				do {
-					point.add(direction);
-					world.spawnParticle(particle /*Particle.VILLAGER_HAPPY*/, point, 1, 0, 0, 0, player.getLevel());
-				} while(point.distance(location) < 30 && point.getBlock().isPassable());
-
-				player.getWorld().spawnParticle(Particle.FLASH, point, 4, 0, 0, 0, 0);
-			}
-		} else if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
-			if(material == Material.BOW) {
-				final Arrow arrow = player.launchProjectile(Arrow.class);
-
-				arrow.setCritical(true);
-				arrow.setColor(Color.BLUE);
-				arrow.setGlowing(true);
-
-				new DotParticleProjectile(player.getEyeLocation()).summon(arrow.getVelocity(), AbstractParticleProjectile.DRAG_ARROW, AbstractParticleProjectile.GRAVITY_ARROW);
+				ParticleEntityLibrary.particleRaycast(
+						new ParticleData(particle, 1, 0, 0, 0),
+						player.getEyeLocation(),
+						player.getEyeLocation().getDirection().normalize().multiply(0.2F),
+						30,
+						stepLocation -> {
+						},
+						hitLocation -> new ParticleData(Particle.FLASH, 4, 0, 0, 0, 0).spawnParticle(hitLocation),
+						false,
+						true
+				);
 			}
 		}
 	}

@@ -2,13 +2,14 @@ package xt449.particleentitylibrary.example;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
 import xt449.particleentitylibrary.AbstractParticleProjectile;
 import xt449.particleentitylibrary.ParticleData;
 
-public class DotParticleProjectile extends AbstractParticleProjectile {
+public class ExampleParticleProjectile extends AbstractParticleProjectile {
 
-	public DotParticleProjectile(Location location) {
-		super(location, new ParticleData(Particle.TOTEM));
+	public ExampleParticleProjectile(Location location) {
+		super(location, new ParticleData(Particle.FLAME, 25, 0.5F, 0.5F, 0.5F));
 	}
 
 	@Override
@@ -17,6 +18,10 @@ public class DotParticleProjectile extends AbstractParticleProjectile {
 
 	@Override
 	protected void onTick() {
+		for(Entity entity : getLocation().getWorld().getNearbyEntities(getLocation(), 1, 1, 1)) {
+			entity.setFireTicks(200); // 10 seconds
+		}
+
 		if(onGround() || getLocation().getY() < 0) {
 			destroy();
 		}

@@ -18,20 +18,20 @@ public class ParticleEntityLibrary extends JavaPlugin {
 		//AbstractParticleEntity.unregister();
 	}
 
-	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay) {
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onStep) {
 		final Location point = origin.clone();
 		do {
 			point.add(direction);
-			onRay.accept(point);
+			onStep.accept(point);
 			particleData.spawnParticle(point);
 		} while(point.distance(origin) < range && point.getBlock().isPassable());
 	}
 
-	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger) {
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onStep, Consumer<Location> onHit, boolean rangeTrigger) {
 		final Location point = origin.clone();
 		do {
 			point.add(direction);
-			onRay.accept(point);
+			onStep.accept(point);
 			particleData.spawnParticle(point);
 
 			if(!point.getBlock().isPassable()) {
@@ -45,11 +45,11 @@ public class ParticleEntityLibrary extends JavaPlugin {
 		}
 	}
 
-	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, boolean strictBoundingBoxes) {
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onStep, boolean strictBoundingBoxes) {
 		final Location point = origin.clone();
 		do {
 			point.add(direction);
-			onRay.accept(point);
+			onStep.accept(point);
 			particleData.spawnParticle(point);
 
 			if(!point.getBlock().isPassable()) {
@@ -62,11 +62,11 @@ public class ParticleEntityLibrary extends JavaPlugin {
 		} while(point.distance(origin) < range);
 	}
 
-	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onRay, Consumer<Location> onHit, boolean rangeTrigger, boolean strictBoundingBoxes) {
+	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onStep, Consumer<Location> onHit, boolean rangeTrigger, boolean strictBoundingBoxes) {
 		final Location point = origin.clone();
 		do {
 			point.add(direction);
-			onRay.accept(point);
+			onStep.accept(point);
 			particleData.spawnParticle(point);
 
 			if(!point.getBlock().isPassable()) {
