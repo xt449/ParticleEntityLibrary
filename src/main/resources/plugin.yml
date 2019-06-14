@@ -3,8 +3,4 @@ name: ${project.name}
 version: ${project.version}
 #load: STARTUP
 author: xt449
-api-version: '1.14'
-
-commands:
-  pel:
-    usage: /<command> [id/name]
+#api-version: '1.14'
