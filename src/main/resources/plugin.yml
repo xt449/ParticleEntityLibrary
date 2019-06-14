@@ -1,4 +1,5 @@
-main: ${project.groupId}.${project.artifactId}.${project.name}
+main: ${project.groupId}.${project.artifactId}.example.ExamplePlugin
+### ${project.name}
 name: ${project.name}
 version: ${project.version}
 #load: STARTUP

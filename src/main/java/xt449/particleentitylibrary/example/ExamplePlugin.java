@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import xt449.particleentitylibrary.AbstractParticleEntity;
 import xt449.particleentitylibrary.ParticleData;
 import xt449.particleentitylibrary.ParticleEntityLibrary;
 
@@ -55,8 +56,15 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
 	}
 
 	@Override
-	public final void onEnable() {
+	public final void onLoad() {
+		getLogger().warning("ParticleEntityLibrary has loaded an example plugin!");
+	}
+
+	@Override
+	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(this, this);
+
+		AbstractParticleEntity.register(this);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)

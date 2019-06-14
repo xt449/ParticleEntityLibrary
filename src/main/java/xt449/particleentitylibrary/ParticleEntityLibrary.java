@@ -1,22 +1,11 @@
 package xt449.particleentitylibrary;
 
 import org.bukkit.Location;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
 import java.util.function.Consumer;
 
-public class ParticleEntityLibrary extends JavaPlugin {
-
-	@Override
-	public final void onEnable() {
-		AbstractParticleEntity.register(this);
-	}
-
-	@Override
-	public final void onDisable() {
-		//AbstractParticleEntity.unregister();
-	}
+public final class ParticleEntityLibrary {
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range, Consumer<Location> onStep) {
 		final Location point = origin.clone();

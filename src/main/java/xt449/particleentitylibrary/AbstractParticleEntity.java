@@ -49,48 +49,51 @@ public abstract class AbstractParticleEntity {
 
 	public final int id;
 
+	protected final ParticleData particleData;
+
 	protected Location location;
 	protected Vector velocity = new Vector();
-	float drag = DRAG_DEFAULT;
-	float gravity = GRAVITY_DEFAULT;
+	protected float drag = DRAG_DEFAULT;
+	protected float gravity = GRAVITY_DEFAULT;
 	protected BoundingBox boundingBox = null;
 
 	// constructors
 
-	protected AbstractParticleEntity(Location location) {
-		id = activeEntities.size();
-		activeEntities.add(this);
-
+	protected AbstractParticleEntity(ParticleData particleData, Location location) {
+		this.id = activeEntities.size();
+		this.particleData = particleData;
 		this.location = location;
+
+		activeEntities.add(this);
 	}
 
-	protected AbstractParticleEntity(Location location, Vector velocity) {
-		this(location);
+	protected AbstractParticleEntity(ParticleData particleData, Location location, Vector velocity) {
+		this(particleData, location);
 		this.velocity = velocity;
 	}
 
 	@Deprecated
-	protected AbstractParticleEntity(Location location, Vector velocity, float drag) {
-		this(location);
+	protected AbstractParticleEntity(ParticleData particleData, Location location, Vector velocity, float drag) {
+		this(particleData, location);
 		this.velocity = velocity;
 		this.drag = drag;
 	}
 
-	protected AbstractParticleEntity(Location location, Vector velocity, float drag, float gravity) {
-		this(location);
+	protected AbstractParticleEntity(ParticleData particleData, Location location, Vector velocity, float drag, float gravity) {
+		this(particleData, location);
 		this.velocity = velocity;
 		this.drag = drag;
 		this.gravity = gravity;
 	}
 
 	@Deprecated
-	protected AbstractParticleEntity(Location location, float drag) {
-		this(location);
+	protected AbstractParticleEntity(ParticleData particleData, Location location, float drag) {
+		this(particleData, location);
 		this.drag = drag;
 	}
 
-	protected AbstractParticleEntity(Location location, float drag, float gravity) {
-		this(location);
+	protected AbstractParticleEntity(ParticleData particleData, Location location, float drag, float gravity) {
+		this(particleData, location);
 		this.drag = drag;
 		this.gravity = gravity;
 	}
@@ -231,11 +234,15 @@ public abstract class AbstractParticleEntity {
 	// miscellaneous
 
 	protected void tick() {
+		onPreTick();
+
+		particleData.spawnParticle(location);
+
 		//if(!onGround()) {
 		processMovementTick();
 		//}
 
-		onTick();
+		onPostTick();
 	}
 
 	protected void processMovementTick() {
@@ -244,7 +251,7 @@ public abstract class AbstractParticleEntity {
 	}
 
 	public final void destroy() {
-		activeEntities.remove(id);
+		activeEntities.remove(this);
 	}
 
 	public final boolean onGround() {
@@ -255,5 +262,7 @@ public abstract class AbstractParticleEntity {
 
 	protected abstract void onSummon();
 
-	protected abstract void onTick();
+	protected abstract void onPreTick();
+
+	protected abstract void onPostTick();
 }

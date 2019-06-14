@@ -8,8 +8,8 @@ import xt449.particleentitylibrary.ParticleData;
 
 public class ExampleParticleProjectile extends AbstractParticleProjectile {
 
-	public ExampleParticleProjectile(Location location) {
-		super(location, new ParticleData(Particle.FLAME, 25, 0.5F, 0.5F, 0.5F));
+	ExampleParticleProjectile(Location location) {
+		super(new ParticleData(Particle.FLAME, 25, 0.5F, 0.5F, 0.5F), location);
 	}
 
 	@Override
@@ -17,7 +17,11 @@ public class ExampleParticleProjectile extends AbstractParticleProjectile {
 	}
 
 	@Override
-	protected void onTick() {
+	protected void onPreTick() {
+	}
+
+	@Override
+	protected void onPostTick() {
 		for(Entity entity : getLocation().getWorld().getNearbyEntities(getLocation(), 1, 1, 1)) {
 			entity.setFireTicks(200); // 10 seconds
 		}
