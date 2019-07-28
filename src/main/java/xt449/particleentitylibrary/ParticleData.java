@@ -99,7 +99,7 @@ public class ParticleData implements ConfigurationSerializable {
 	@Override
 	public final Map<String, Object> serialize() {
 		final Map<String, Object> map = new HashMap<>();
-		map.put("particle", particle);
+		map.put("particle", particle.name());
 		map.put("count", count);
 		map.put("offsetX", offsetX);
 		map.put("offsetY", offsetY);
@@ -112,7 +112,7 @@ public class ParticleData implements ConfigurationSerializable {
 
 	public static final ParticleData deserialize(final Map<String, Object> map) {
 		return new ParticleData(
-			(Particle) map.get("particle"),
+			Particle.valueOf((String) map.get("particle")),
 			(int) map.get("count"),
 			(double) map.get("offsetX"),
 			(double) map.get("offsetY"),
