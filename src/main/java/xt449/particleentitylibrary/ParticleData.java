@@ -2,8 +2,12 @@ package xt449.particleentitylibrary;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-public class ParticleData {
+import java.util.HashMap;
+import java.util.Map;
+
+public class ParticleData implements ConfigurationSerializable {
 
 	private Particle particle;
 	private int count = 1;
@@ -90,5 +94,32 @@ public class ParticleData {
 
 	public void spawnParticle(Location location) {
 		location.getWorld().spawnParticle(particle, location, count, offsetX, offsetY, offsetZ, extra, data, force);
+	}
+
+	@Override
+	public final Map<String, Object> serialize() {
+		final Map<String, Object> map = new HashMap<>();
+		map.put("particle", particle);
+		map.put("count", count);
+		map.put("offsetX", offsetX);
+		map.put("offsetY", offsetY);
+		map.put("offsetZ", offsetZ);
+		map.put("extra", extra);
+		map.put("data", data);
+		map.put("force", force);
+		return map;
+	}
+
+	public static final ParticleData deserialize(final Map<String, Object> map) {
+		return new ParticleData(
+			(Particle) map.get("particle"),
+			(int) map.get("count"),
+			(double) map.get("offsetX"),
+			(double) map.get("offsetY"),
+			(double) map.get("offsetZ"),
+			(double) map.get("extra"),
+			map.get("data"),
+			(boolean) map.get("force")
+		);
 	}
 }
