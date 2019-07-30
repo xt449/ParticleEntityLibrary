@@ -1,6 +1,8 @@
 package xt449.particleentitylibrary;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import java.util.function.Consumer;
@@ -74,5 +76,13 @@ public final class ParticleEntityLibrary {
 		if(rangeTrigger) {
 			onHit.accept(point);
 		}
+	}
+
+	public static void register() {
+		ConfigurationSerialization.registerClass(ParticleData.class, "ParticleData");
+	}
+
+	public static void register(final Plugin plugin) {
+		register();
 	}
 }

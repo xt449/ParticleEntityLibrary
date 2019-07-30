@@ -106,7 +106,7 @@ public class ParticleData implements ConfigurationSerializable {
 		map.put("offsetY", offsetY);
 		map.put("offsetZ", offsetZ);
 		map.put("extra", extra);
-		if(data instanceof Particle.DustOptions) {
+		if(data != null) {
 			map.put("data", serializeDustOptions(data));
 		}
 		map.put("force", force);
@@ -115,10 +115,15 @@ public class ParticleData implements ConfigurationSerializable {
 
 	public static final ParticleData deserialize(final Map<String, Object> map) {
 		Particle.DustOptions data = null;
-		try {
-			data = deserializeDustOptions((Map<String,Object>) map.get("data"));
-		} catch(Exception exc) {
-			// unable to desrelaize object
+		if(map.containsKey("data")) {
+			try {
+				data = deserializeDustOptions((Map<String, Object>) map.get("data"));
+			} catch(NullPointerException exc) {
+				exc.printStackTrace();
+				// unable to deserialize object?
+			} catch(Exception exc) {
+				exc.printStackTrace();
+			}
 		}
 		return new ParticleData(
 			Particle.valueOf((String) map.get("particle")),
@@ -135,14 +140,15 @@ public class ParticleData implements ConfigurationSerializable {
 	public static final Map<String, Object> serializeDustOptions(final Particle.DustOptions dustOptions) {
 		final Map<String, Object> map = new HashMap<>();
 		map.put("color", dustOptions.getColor());
-		map.put("size", dustOptions.getSize());
+		// TODO: debug - map.put("color_s", dustOptions.getColor().serialize());
+		map.put("size", (double) dustOptions.getSize());
 		return map;
 	}
 
-	public static final Particle.DustOptions deserializeDustOptions(final Map<String, Object> map) {
+	public static final Particle.DustOptions deserializeDustOptions(final Map<String, Object> map) throws NullPointerException {
 		return new Particle.DustOptions(
 			(Color) map.get("color"),
-			(float) map.get("size")
+			(float) (double) map.get("size")
 		);
 	}
 }

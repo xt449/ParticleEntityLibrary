@@ -6,7 +6,7 @@
 
     <groupId>xt449</groupId>
     <artifactId>particleentitylibrary</artifactId>
-    <version>${minecraft.version}-1.2.3</version>
+    <version>${minecraft.version}-1.2.4</version>
     <name>ParticleEntityLibrary</name>
 
     <properties>
@@ -40,8 +40,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
+                    <excludes>
+                        <exclude>xt449/particleentitylibrary/example/</exclude>
+                    </excludes>
                     <source>8</source>
                     <target>8</target>
                 </configuration>
