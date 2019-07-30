@@ -1,5 +1,6 @@
 package xt449.particleentitylibrary;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -15,7 +16,7 @@ public class ParticleData implements ConfigurationSerializable {
 	private double offsetY = 0;
 	private double offsetZ = 0;
 	private double extra = 0;
-	private Object data = null;
+	private Particle.DustOptions data = null;
 	private boolean force = false;
 
 	public ParticleData(Particle particle) {
@@ -44,7 +45,7 @@ public class ParticleData implements ConfigurationSerializable {
 		this.extra = extra;
 	}
 
-	public ParticleData(Particle particle, int count, double offsetX, double offsetY, double offsetZ, double extra, Object data) {
+	public ParticleData(Particle particle, int count, double offsetX, double offsetY, double offsetZ, double extra, Particle.DustOptions data) {
 		this(particle);
 		this.count = count;
 		this.offsetX = offsetX;
@@ -54,7 +55,7 @@ public class ParticleData implements ConfigurationSerializable {
 		this.data = data;
 	}
 
-	public ParticleData(Particle particle, int count, double offsetX, double offsetY, double offsetZ, double extra, Object data, boolean force) {
+	public ParticleData(Particle particle, int count, double offsetX, double offsetY, double offsetZ, double extra, Particle.DustOptions data, boolean force) {
 		this(particle);
 		this.count = count;
 		this.offsetX = offsetX;
@@ -82,7 +83,7 @@ public class ParticleData implements ConfigurationSerializable {
 		return this;
 	}
 
-	public ParticleData setData(Object data) {
+	public ParticleData setData(Particle.DustOptions data) {
 		this.data = data;
 		return this;
 	}
@@ -105,12 +106,20 @@ public class ParticleData implements ConfigurationSerializable {
 		map.put("offsetY", offsetY);
 		map.put("offsetZ", offsetZ);
 		map.put("extra", extra);
-		map.put("data", data);
+		if(data instanceof Particle.DustOptions) {
+			map.put("data", serializeDustOptions(data));
+		}
 		map.put("force", force);
 		return map;
 	}
 
 	public static final ParticleData deserialize(final Map<String, Object> map) {
+		Particle.DustOptions data = null;
+		try {
+			data = deserializeDustOptions((Map<String,Object>) map.get("data"));
+		} catch(Exception exc) {
+			// unable to desrelaize object
+		}
 		return new ParticleData(
 			Particle.valueOf((String) map.get("particle")),
 			(int) map.get("count"),
@@ -118,8 +127,22 @@ public class ParticleData implements ConfigurationSerializable {
 			(double) map.get("offsetY"),
 			(double) map.get("offsetZ"),
 			(double) map.get("extra"),
-			map.get("data"),
+			data,
 			(boolean) map.get("force")
+		);
+	}
+
+	public static final Map<String, Object> serializeDustOptions(final Particle.DustOptions dustOptions) {
+		final Map<String, Object> map = new HashMap<>();
+		map.put("color", dustOptions.getColor());
+		map.put("size", dustOptions.getSize());
+		return map;
+	}
+
+	public static final Particle.DustOptions deserializeDustOptions(final Map<String, Object> map) {
+		return new Particle.DustOptions(
+			(Color) map.get("color"),
+			(float) map.get("size")
 		);
 	}
 }
