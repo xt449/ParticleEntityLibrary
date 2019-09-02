@@ -246,8 +246,8 @@ public abstract class AbstractParticleEntity {
 	}
 
 	protected void processMovementTick() {
-		location = location.add(velocity);
-		velocity = velocity.multiply(1 - drag).subtract(new Vector(0, gravity, 0));
+		/*location = */location.add(velocity);
+		/*velocity = */velocity.multiply(1 - drag).subtract(new Vector(0, gravity, 0));
 	}
 
 	public final void destroy() {
