@@ -1,5 +1,6 @@
-package xt449.particleentitylibrary.example;
+package com.github.xt449.particleentitylibrary.example;
 
+import com.github.xt449.particleentitylibrary.ParticleEntityLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -20,10 +21,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import xt449.particleentitylibrary.AbstractParticleEntity;
-import xt449.particleentitylibrary.Laser;
-import xt449.particleentitylibrary.ParticleData;
-import xt449.particleentitylibrary.ParticleEntityLibrary;
+import com.github.xt449.particleentitylibrary.AbstractParticleEntity;
+import com.github.xt449.particleentitylibrary.Laser;
+import com.github.xt449.particleentitylibrary.ParticleData;
 
 import java.util.Arrays;
 import java.util.HashMap;

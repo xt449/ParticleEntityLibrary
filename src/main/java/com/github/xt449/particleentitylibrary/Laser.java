@@ -1,4 +1,4 @@
-package xt449.particleentitylibrary;
+package com.github.xt449.particleentitylibrary;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;

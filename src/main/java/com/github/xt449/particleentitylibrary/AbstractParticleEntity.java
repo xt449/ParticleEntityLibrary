@@ -1,4 +1,4 @@
-package xt449.particleentitylibrary;
+package com.github.xt449.particleentitylibrary;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

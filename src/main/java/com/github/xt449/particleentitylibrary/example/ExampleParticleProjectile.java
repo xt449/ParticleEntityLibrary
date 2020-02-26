@@ -1,10 +1,10 @@
-package xt449.particleentitylibrary.example;
+package com.github.xt449.particleentitylibrary.example;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
-import xt449.particleentitylibrary.AbstractParticleProjectile;
-import xt449.particleentitylibrary.ParticleData;
+import com.github.xt449.particleentitylibrary.AbstractParticleProjectile;
+import com.github.xt449.particleentitylibrary.ParticleData;
 
 public class ExampleParticleProjectile extends AbstractParticleProjectile {
 

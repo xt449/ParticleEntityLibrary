@@ -1,12 +1,12 @@
-package xt449.particleentitylibrary.example;
+package com.github.xt449.particleentitylibrary.example;
 
+import com.github.xt449.particleentitylibrary.AbstractParticleEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import xt449.particleentitylibrary.AbstractParticleEntity;
-import xt449.particleentitylibrary.ParticleData;
+import com.github.xt449.particleentitylibrary.ParticleData;
 
 import java.util.Iterator;
 
