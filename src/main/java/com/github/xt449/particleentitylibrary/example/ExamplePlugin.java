@@ -29,11 +29,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author xt449
- * Copyright BinaryBanana/xt449 2019
- * All Rights Reserved
- */
 public class ExamplePlugin extends JavaPlugin implements Listener {
 
 	private Particle particle = Particle.values()[0];
