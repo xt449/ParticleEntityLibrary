@@ -6,6 +6,9 @@ import org.bukkit.entity.Entity;
 import com.github.xt449.particleentitylibrary.AbstractParticleProjectile;
 import com.github.xt449.particleentitylibrary.ParticleData;
 
+/**
+ * @author xt449
+ */
 public class ExampleParticleProjectile extends AbstractParticleProjectile {
 
 	ExampleParticleProjectile(Location location) {

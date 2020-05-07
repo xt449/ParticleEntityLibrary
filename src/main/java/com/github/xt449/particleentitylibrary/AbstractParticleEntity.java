@@ -9,6 +9,9 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
+/**
+ * @author xt449
+ */
 public abstract class AbstractParticleEntity {
 
 	// static

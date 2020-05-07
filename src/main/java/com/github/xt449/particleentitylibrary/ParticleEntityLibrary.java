@@ -6,6 +6,9 @@ import org.bukkit.util.Vector;
 
 import java.util.function.Consumer;
 
+/**
+ * @author xt449
+ */
 public final class ParticleEntityLibrary {
 
 	public static void particleRaycast(ParticleData particleData, Location origin, Vector direction, float range) {

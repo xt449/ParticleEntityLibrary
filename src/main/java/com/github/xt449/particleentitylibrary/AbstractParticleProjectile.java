@@ -2,6 +2,9 @@ package com.github.xt449.particleentitylibrary;
 
 import org.bukkit.Location;
 
+/**
+ * @author xt449
+ */
 public abstract class AbstractParticleProjectile extends AbstractParticleEntity {
 
 	/*private static int taskId = -1;

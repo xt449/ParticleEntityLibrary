@@ -29,6 +29,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author xt449
+ */
 public class ExamplePlugin extends JavaPlugin implements Listener {
 
 	private Particle particle = Particle.values()[0];

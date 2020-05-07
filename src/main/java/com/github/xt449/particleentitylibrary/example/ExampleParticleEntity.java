@@ -10,6 +10,9 @@ import com.github.xt449.particleentitylibrary.ParticleData;
 
 import java.util.Iterator;
 
+/**
+ * @author xt449
+ */
 public class ExampleParticleEntity extends AbstractParticleEntity {
 
 	ExampleParticleEntity(Location location) {

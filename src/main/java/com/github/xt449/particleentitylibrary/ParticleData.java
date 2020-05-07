@@ -10,6 +10,9 @@ import org.bukkit.material.MaterialData;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author xt449
+ */
 public class ParticleData implements ConfigurationSerializable {
 
 	static {
