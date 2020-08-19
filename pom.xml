@@ -6,11 +6,11 @@
 
     <groupId>com.github.xt449</groupId>
     <artifactId>particleentitylibrary</artifactId>
-    <version>${minecraft.version}-1.3.1</version>
+    <version>${minecraft.version}-1.3.2</version>
     <name>ParticleEntityLibrary</name>
 
     <properties>
-        <minecraft.version>1.15.2</minecraft.version>
+        <minecraft.version>1.16.1</minecraft.version>
     </properties>
 
     <repositories>
@@ -18,27 +18,22 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-
-        <repository>
-            <id>papermc-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
     </repositories>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>${minecraft.version}-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
-        <!--<dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${minecraft.version}-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>-->
+        </dependency>
 
         <!--<dependency>
             <groupId>org.spigotmc</groupId>
@@ -63,7 +58,8 @@
                 <version>3.8.1</version>
                 <configuration>
                     <excludes>
-                        <exclude>xt449/particleentitylibrary/example/</exclude>
+                        <exclude>com/github/xt449/particleentitylibrary/example/</exclude>
+                        <exclude>plugin.yml</exclude>
                     </excludes>
                     <source>8</source>
                     <target>8</target>
