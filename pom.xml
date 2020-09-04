@@ -6,11 +6,11 @@
 
     <groupId>com.github.xt449</groupId>
     <artifactId>particleentitylibrary</artifactId>
-    <version>${minecraft.version}-1.3.2</version>
+    <version>${minecraft.version}-1.3.3</version>
     <name>ParticleEntityLibrary</name>
 
     <properties>
-        <minecraft.version>1.16.1</minecraft.version>
+        <minecraft.version>1.16.2</minecraft.version>
     </properties>
 
     <repositories>

@@ -28,7 +28,6 @@ public class ParticleData implements ConfigurationSerializable {
 		Particle.DustOptions dustOptions;
 		ItemStack itemStack;
 		BlockData blockData;
-		MaterialData materialData;
 
 		public Data() {
 
@@ -46,10 +45,6 @@ public class ParticleData implements ConfigurationSerializable {
 			this.blockData = blockData;
 		}
 
-		public Data(MaterialData materialData) {
-			this.materialData = materialData;
-		}
-
 		public Object resolve() {
 			if(dustOptions != null) {
 				return dustOptions;
@@ -60,9 +55,6 @@ public class ParticleData implements ConfigurationSerializable {
 			if(blockData != null) {
 				return blockData;
 			}
-			if(materialData != null) {
-				return materialData;
-			}
 			return null;
 		}
 
@@ -70,28 +62,24 @@ public class ParticleData implements ConfigurationSerializable {
 			this.dustOptions = dustOptions;
 			this.itemStack = null;
 			this.blockData = null;
-			this.materialData = null;
 		}
 
 		private void setItemStack(ItemStack itemStack) {
 			this.dustOptions = null;
 			this.itemStack = itemStack;
 			this.blockData = null;
-			this.materialData = null;
 		}
 
 		private void setBlockData(BlockData blockData) {
 			this.dustOptions = null;
 			this.itemStack = null;
 			this.blockData = blockData;
-			this.materialData = null;
 		}
 
 		private void setMaterialData(MaterialData materialData) {
 			this.dustOptions = null;
 			this.itemStack = null;
 			this.blockData = null;
-			this.materialData = materialData;
 		}
 
 		@Override
@@ -109,10 +97,6 @@ public class ParticleData implements ConfigurationSerializable {
 			} else if(blockData != null) {
 				map.put("type", BlockData.class.getName());
 				map.put("material", blockData.getMaterial().name());
-			} else if(materialData != null) {
-				map.put("type", MaterialData.class.getName());
-				map.put("material", materialData.getItemType().name());
-				//map.put("data", materialData.getData());
 			}
 
 			return map;
@@ -135,11 +119,6 @@ public class ParticleData implements ConfigurationSerializable {
 				} else if(type.equals(BlockData.class.getName())) {
 					return new Data(Bukkit.createBlockData(
 							Material.valueOf((String) map.get("material"))
-					));
-				} else if(type.equals(MaterialData.class.getName())) {
-					return new Data(new MaterialData(
-							Material.valueOf((String) map.get("material"))
-							//,(byte) (int) map.get("data")
 					));
 				}
 			}
