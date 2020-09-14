@@ -1,7 +1,0 @@
-main: ${project.groupId}.${project.artifactId}.example.ExamplePlugin
-### ${project.name}
-name: ${project.name}
-version: ${project.version}
-#load: STARTUP
-author: xt449
-#api-version: '1.14'
