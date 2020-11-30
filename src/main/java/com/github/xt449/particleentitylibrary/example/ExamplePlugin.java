@@ -54,34 +54,9 @@ import java.util.Map;
  */
 public class ExamplePlugin extends JavaPlugin implements Listener {
 
+	private final Map<Player, LaserRunnable> lasers = new HashMap<>();
+
 	private Particle particle = Particle.values()[0];
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(command.getName().equalsIgnoreCase("pel")) {
-			if(args.length > 0) {
-				try {
-					int num = Integer.parseInt(args[0]);
-					particle = Particle.values()[num];
-					return true;
-				} catch(NumberFormatException exc) {
-					//
-				}
-				try {
-					particle = Particle.valueOf(args[0]);
-					return true;
-				} catch(IllegalArgumentException exc) {
-					//
-				}
-			} else {
-				sender.sendMessage(Arrays.toString(Particle.values()));
-				return true;
-			}
-			return false;
-		}
-
-		return false;
-	}
 
 	@Override
 	public final void onLoad() {
@@ -123,11 +98,36 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
 		}
 	}
 
-	private Map<Player, LaserRunnable> lasers = new HashMap<>();
-
 	@Override
 	public void onDisable() {
 		lasers.forEach((player, run) -> run.laser.stop());
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if(command.getName().equalsIgnoreCase("pel")) {
+			if(args.length > 0) {
+				try {
+					int num = Integer.parseInt(args[0]);
+					particle = Particle.values()[num];
+					return true;
+				} catch(NumberFormatException exc) {
+					//
+				}
+				try {
+					particle = Particle.valueOf(args[0]);
+					return true;
+				} catch(IllegalArgumentException exc) {
+					//
+				}
+			} else {
+				sender.sendMessage(Arrays.toString(Particle.values()));
+				return true;
+			}
+			return false;
+		}
+
+		return false;
 	}
 
 	@EventHandler

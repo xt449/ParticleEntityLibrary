@@ -57,7 +57,7 @@ public abstract class AbstractParticleEntity {
 	}
 
 	private static boolean registered = false;
-	private static int taskId = -1;
+	private static final int taskId = -1;
 
 	public static boolean register(Plugin plugin) {
 		return registered = -1 != Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> new ArrayList<>(activeEntities).forEach(AbstractParticleEntity::tick), 100, 1);
@@ -278,7 +278,7 @@ public abstract class AbstractParticleEntity {
 	}
 
 	public final boolean onGround() {
-		return (location.getBlock().getType() != Material.AIR /*|| getNextLocation(id).getBlock().getType() != Material.AIR*/);
+		return location.getBlock().getType() != Material.AIR /*|| getNextLocation(id).getBlock().getType() != Material.AIR*/;
 	}
 
 	// events
